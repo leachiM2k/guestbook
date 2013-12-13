@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Guestbook</title>
+		<link rel="stylesheet" type="text/css" href="styles/simpletheme.css" />
+	</head>
+
+	<body>
+		<div class="container">
+			<header>
+				<h1>Simple Guestbook</h1>
+			</header>
+			
+			<div class="userBox">
+				<a href="/login">login to write a new entry</a>
+			</div>
+			
+			<div class="content">
+				
+				<div id="entryForm">
+					<form>
+						<label for="formText">Text</label>
+						<textarea id="formText" cols=50 rows=10 placeholder="Write your entry here"></textarea>
+						<button type="submit">Send your entry</button>
+					</form>
+				</div>
+				
+				<div class="entryContainer">
+					
+					<h2>Entries</h2>
+				
+					<div class="entry">
+						<div class="entryControl">
+							<a href="/entry/publish/12/">publish</a> |
+							<a href="/entry/delete/12/">delete</a> | 
+							<a href="/entry/edit/12/">edit</a>
+						</div>
+						<div>
+							<a class="author" href="mailto:noreply@example.com">Hans</a>
+							on
+							<div class="date">Friday, 12-12-2013</div>
+						</div>
+						<p class="entryText">This is a brown fox test that i left here few days ago.</p>
+					</div>
+				
+				</div>
+				
+			</div>
+			<div class="userBox">
+				<a href="/login">login to write a new entry</a>
+			</div>
+
+			<footer>
+				<p>&copy; 2013 by Michael Rotmanov</p>
+			</footer>
+		</div>
+	</body>
+</html>
