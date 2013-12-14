@@ -7,6 +7,10 @@
 
 namespace guestbook\Core;
 
+use guestbook\Core\Resource\AbstractResource;
+use guestbook\Core\Router\RouteNotFoundException;
+use guestbook\Core\Router\RouteResource;
+
 class FrontControllerTest extends \PHPUnit_Framework_TestCase
 {
 	private $frontController;
@@ -21,8 +25,12 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
 
 	public function testDispatch404CodeOnNoRoute()
 	{
+		$this->router->expects($this->once())
+			->method('route')
+			->will($this->throwException(new RouteNotFoundException()));
+
 		$testUrl = '/not/found';
-		$this->frontController->dispatch($testUrl);
+		$this->frontController->dispatch($testUrl, 'get');
 
 		$this->assertAttributeEquals(404, 'httpCode', $this->frontController);
 	}
@@ -31,15 +39,23 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
 	{
 		$testUrl = '/existing/page';
 
+		$resource = new RouteResource('guestbook\Core\DummyResource');
+
 		$this->router->expects($this->once())
 			->method('route')
 			->with('/existing/page')
-			->will($this->returnValue("foo"));
+			->will($this->returnValue($resource));
 
-		$this->frontController->dispatch($testUrl);
+		$this->frontController->dispatch($testUrl, 'get');
 
 		$this->assertAttributeEquals(200, 'httpCode', $this->frontController);
 	}
 
 }
- 
+
+class DummyResource extends AbstractResource
+{
+	public function get()
+	{
+	}
+}

@@ -17,7 +17,7 @@ class Router
 		{
 			if($route->matches($url))
 			{
-				return $route->getResource();
+				return $route->getRouteResource();
 			}
 		}
 

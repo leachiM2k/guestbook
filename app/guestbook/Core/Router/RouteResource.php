@@ -7,8 +7,37 @@
 
 namespace guestbook\Core\Router;
 
-class RouteResource {
+use guestbook\Core\Resource\AbstractResource;
 
-	private $foo;
+class RouteResource
+{
+	/**
+	 * @var AbstractResource
+	 */
+	private $resource;
+	/**
+	 * @var AbstractResource
+	 */
+	private $instance;
 
-} 
+	public function __construct($resource = null)
+	{
+		if(isset($resource))
+		{
+			$this->setResource($resource);
+		}
+	}
+
+	public function setResource($resource)
+	{
+		$this->resource = $resource;
+	}
+
+	public function getInstance()
+	{
+		if (!isset($this->instance)) {
+			$this->instance = new $this->resource;
+		}
+		return $this->instance;
+	}
+}

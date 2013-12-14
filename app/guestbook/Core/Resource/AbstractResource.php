@@ -19,4 +19,5 @@ abstract class AbstractResource
 	{
 		throw new \RuntimeException("POST is not implemented in " .  __CLASS__);
 	}
+
 } 

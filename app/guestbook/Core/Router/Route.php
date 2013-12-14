@@ -11,7 +11,7 @@ class Route
 {
 	private $name;
 	private $url;
-	private $resource;
+	private $routeResource;
 
 	/**
 	 * @param string $name Name of Route
@@ -21,7 +21,7 @@ class Route
 	function __construct($name, $url, RouteResource $resource)
 	{
 		$this->name = $name;
-		$this->resource = $resource;
+		$this->routeResource = $resource;
 		$this->url = $url;
 	}
 
@@ -52,17 +52,17 @@ class Route
 	/**
 	 * @param mixed $resource
 	 */
-	public function setResource($resource)
+	public function setRouteResource($resource)
 	{
-		$this->resource = $resource;
+		$this->routeResource = $resource;
 	}
 
 	/**
 	 * @return mixed
 	 */
-	public function getResource()
+	public function getRouteResource()
 	{
-		return $this->resource;
+		return $this->routeResource;
 	}
 
 	/**
