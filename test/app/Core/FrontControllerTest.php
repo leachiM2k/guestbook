@@ -20,7 +20,10 @@ class FrontControllerTest extends \PHPUnit_Framework_TestCase
 	{
 		$this->router = $this->getMock('\guestbook\Core\Router\Router');
 
-		$this->frontController = new FrontController($this->router);
+		$configuration = new Configuration();
+		$configuration->setRouter($this->router);
+
+		$this->frontController = new FrontController($configuration);
 	}
 
 	public function testDispatch404CodeOnNoRoute()

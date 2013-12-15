@@ -9,6 +9,7 @@ namespace guestbook\Resources;
 
 use guestbook\Core\Renderer\ViewRenderer;
 use guestbook\Core\Resource\AbstractResource;
+use guestbook\Entities\EntryService;
 
 class IndexResource extends AbstractResource
 {
@@ -21,7 +22,14 @@ class IndexResource extends AbstractResource
 
 	public function get()
     {
+		$entryService = new EntryService($this->getConfiguration()->getDatabase()->getConnector());
+
+		$data = array(
+			'entries' => $entryService->fetchAll()
+		);
+
 		$renderer = new ViewRenderer();
+		$renderer->setData($data);
 		$renderer->setTemplateFileName($this->viewName);
 		return $renderer;
     }

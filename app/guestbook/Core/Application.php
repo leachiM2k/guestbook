@@ -8,20 +8,45 @@
 namespace guestbook\Core;
 
 use guestbook\Core\FrontController;
+use guestbook\Core\Storage\Database\DatabaseFactory;
 
 class Application
 {
 
-	private $router;
+	/**
+	 * @var Configuration
+	 */
+	private $configuration;
+
 	private $config;
 
-	function __construct($router, $config)
+	function __construct(Configuration $configuration)
 	{
-		$this->router = $router;
-		$this->config = $config;
+		$this->configuration = $configuration;
+		$this->config = $this->configuration->getConfig();
 	}
 
 	public function run()
+	{
+		$method = strtolower($_SERVER['REQUEST_METHOD']);
+		$url = $this->getUrl();
+
+		$frontController = new FrontController($this->configuration);
+		$renderer = $frontController->dispatch($url, $method);
+
+		if($frontController->httpCode != 200)
+		{
+			header('HTTP/1.0 '.$frontController->httpCode.' '.$frontController->httpMessage);
+		}
+
+		$renderer->setTemplateBasePath($this->config['general']['templatePath']);
+		echo $renderer->render();
+	}
+
+	/**
+	 * @return mixed|string
+	 */
+	protected function getUrl()
 	{
 		$url = $_SERVER['REQUEST_URI'];
 		// strip GET variables from URL
@@ -32,20 +57,9 @@ class Application
 		if (isset($this->config['general']['basePath'])) {
 			$regex = "/^" . preg_quote($this->config['general']['basePath'], "/") . "/";
 			$url = preg_replace($regex, '', $url);
+			return $url;
 		}
-
-		$method = strtolower($_SERVER['REQUEST_METHOD']);
-
-		$frontController = new FrontController($this->router);
-		$renderer = $frontController->dispatch($url, $method);
-
-		if($frontController->httpCode != 200)
-		{
-			header('HTTP/1.0 '.$frontController->httpCode.' '.$frontController->httpMessage);
-		}
-
-		$renderer->setTemplateBasePath($this->config['general']['templatePath']);
-		echo $renderer->render();
+		return $url;
 	}
 
 } 

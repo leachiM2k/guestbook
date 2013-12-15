@@ -29,21 +29,25 @@
 				<div class="entryContainer">
 					
 					<h2>Entries</h2>
-				
-					<div class="entry">
-						<div class="entryControl">
-							<a href="/entry/publish/12/">publish</a> |
-							<a href="/entry/delete/12/">delete</a> | 
-							<a href="/entry/edit/12/">edit</a>
+
+					<?php foreach($this->entries as $entry) : ?>
+						<div class="entry">
+							<div class="entryControl">
+								<a href="/entry/publish/12/">publish</a> |
+								<a href="/entry/delete/12/">delete</a> |
+								<a href="/entry/edit/12/">edit</a>
+							</div>
+							<div>
+								<a class="author" href="mailto:<?php echo $entry->getUser()->getEmail(); ?>">
+									<?php echo $entry->getUser()->getName(); ?>
+								</a>
+								on
+								<div class="date"><?php echo $entry->getDate(); ?></div>
+							</div>
+							<p class="entryText"><?php echo $entry->getText(); ?></p>
 						</div>
-						<div>
-							<a class="author" href="mailto:noreply@example.com">Hans</a>
-							on
-							<div class="date">Friday, 12-12-2013</div>
-						</div>
-						<p class="entryText">This is a brown fox test that i left here few days ago.</p>
-					</div>
-				
+					<?php endforeach; ?>
+
 				</div>
 				
 			</div>

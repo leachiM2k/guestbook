@@ -7,7 +7,6 @@
 
 namespace guestbook\Core;
 
-use guestbook\Core\Router\Route;
 use guestbook\Core\Router\RouteNotFoundException;
 use guestbook\Core\Router\Router;
 use guestbook\Core\Router\RouteResource;
@@ -15,16 +14,16 @@ use guestbook\Core\Router\RouteResource;
 class FrontController
 {
 	/**
-	 * @var Router\Router
+	 * @var Configuration
 	 */
-	public $router;
+	public $configuration;
 
 	public $httpCode = 200;
 	public $httpMessage = 'OK';
 
-	public function __construct(Router $router)
+	public function __construct(Configuration $configuration)
 	{
-		$this->router = $router;
+		$this->configuration = $configuration;
 	}
 
 	public function dispatch($url, $method)
@@ -33,14 +32,16 @@ class FrontController
 		 * @var RouteResource
 		 */
 		try {
-			$resource = $this->router->route($url);
+			$resource = $this->configuration->getRouter()->route($url);
 		} catch (RouteNotFoundException $e) {
 			$this->httpCode = 404;
 			$this->httpMessage = "Not Found";
 			$resource = new RouteResource('guestbook\Core\Resource\NotFoundResource');
 		}
 
-		$resourceResponse = $resource->getInstance()->$method();
+		$resourceInstance = $resource->getInstance();
+		$resourceInstance->setConfiguration($this->configuration);
+		$resourceResponse = $resourceInstance->$method();
 
 		return $resourceResponse;
 	}
