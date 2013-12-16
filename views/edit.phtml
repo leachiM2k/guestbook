@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Guestbook</title>
+		<link rel="stylesheet" type="text/css" href="<?=$this->getAppBasePath(); ?>/styles/simpletheme.css" />
+	</head>
+
+	<body>
+		<div class="container">
+			<header>
+				<h1>Simple Guestbook - Edit Entry</h1>
+			</header>
+			
+			<div class="userBox">
+				Logged in as <?=$this->userData->getName();?>
+				<a href="<?=$this->getUrl("logout"); ?>">logout</a>
+			</div>
+			
+			<div class="content">
+
+				<div id="entryForm">
+					<h2>Entry written by <?=$this->entry->getUser()->getName(); ?></h2>
+					<form method="post" action="<?=$this->getUrl("entry_edit"); ?>">
+						<label for="formDate">Date</label>
+						<input id="formDate" name="date" type="text" value="<?=$this->entry->getDate(); ?>" />
+						<label for="formText">Text</label>
+						<textarea id="formText" name="text" cols=50 rows=10 placeholder="Write your entry here"><?=$this->entry->getText(); ?></textarea>
+						<input type="hidden" name="id" value="<?=$this->entry->getId(); ?>" />
+						<button type="submit">Save entry</button>
+					</form>
+				</div>
+
+				
+			</div>
+			<div class="userBox">
+				Logged in as <?=$this->userData->getName();?>
+				<a href="<?=$this->getUrl("logout"); ?>">logout</a>
+			</div>
+
+			<footer>
+				<p>&copy; 2013 by Michael Rotmanov</p>
+			</footer>
+		</div>
+	</body>
+</html>

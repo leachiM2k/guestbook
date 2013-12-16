@@ -15,11 +15,11 @@ interface ConnectorInterface
 
 	public function disconnect();
 
-	public function fetch($table, $fieldsAndValues = null, $orderBy = null);
+	public function fetch($table, $fieldsAndValues = null, $orderBy = null, $orderSortAscending = true);
 
 	public function insert($table, $fieldsAndValues);
 
-	public function update($table, $fieldsAndValues);
+	public function update($table, $fieldsAndValues, $whereFieldsAndValues);
 
 	public function delete($table, $fieldsAndValues);
 }

@@ -37,20 +37,25 @@
 					<h2>Entries</h2>
 
 					<?php foreach($this->entries as $entry) :
-						if((!isset($this->userData) || !$this->userData->isAdmin()) && !$entry->isActive()) continue;
+						if((!isset($this->userData) || (!$this->userData->isAdmin() && $this->userData->getId() != $entry->getUserId())) && !$entry->isActive()) continue;
 					?>
-						<div class="entry">
-							<?php if(isset($this->userData) && $this->userData->isAdmin()) : ?>
-							<div class="entryControl">
-								<?php if($entry->isActive()) : ?>
-									<a href="<?=$this->getUrl("entry_unpublish"); ?>/?id=<?=$entry->getId();?>">unpublish</a> |
-								<?php else: ?>
-									<a class="publishLink" href="<?=$this->getUrl("entry_publish"); ?>/?id=<?=$entry->getId();?>">publish</a> |
+						<div class="entry<?=!$entry->isActive() ? ' inactive' : ''; ?>">
+
+							<div class="rightSideRemarks">
+								<?php if(isset($this->userData) && $this->userData->isAdmin()) : ?>
+								<div class="entryControl">
+									<?php if($entry->isActive()) : ?>
+										<a href="<?=$this->getUrl("entry_unpublish"); ?>/?id=<?=$entry->getId();?>">unpublish</a> |
+									<?php else: ?>
+										<a class="publishLink" href="<?=$this->getUrl("entry_publish"); ?>/?id=<?=$entry->getId();?>">publish</a> |
+									<?php endif; ?>
+									<a href="<?=$this->getUrl("entry_delete"); ?>/?id=<?=$entry->getId();?>">delete</a> |
+									<a href="<?=$this->getUrl("entry_edit"); ?>/?id=<?=$entry->getId();?>">edit</a>
+								</div>
 								<?php endif; ?>
-								<a href="<?=$this->getUrl("entry_delete"); ?>/?id=<?=$entry->getId();?>">delete</a> |
-								<a href="<?=$this->getUrl("entry_edit"); ?>/?id=<?=$entry->getId();?>">edit</a>
+								<div class="reviewMark">This entry must be reviewed by an admin.</div>
 							</div>
-							<?php endif; ?>
+
 							<div>
 								<a class="author" href="mailto:<?php echo $entry->getUser()->getEmail(); ?>">
 									<?php echo $entry->getUser()->getName(); ?>

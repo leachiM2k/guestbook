@@ -11,8 +11,22 @@
 			<header>
 				<h1>Simple Guestbook - Login</h1>
 			</header>
+
+			<div id="demoNote">
+				<p><b>Registration is not implemented.</b></p>
+				<p>Please use demo users and passwords:
+				<ul>
+					<li>Administrator: admin / admin</li>
+					<li>Hans Wurst: hans / hans</li>
+					<li>John Doe: john / john</li>
+				</ul>
+				</p>
+			</div>
 			
+			<div class="userBox">&nbsp;</div>
+
 			<div class="content">
+
 
 				<?php if($this->authError) : ?>
 					<div id="authError">
@@ -32,6 +46,7 @@
 
 			</div>
 
+			<div class="userBox">&nbsp;</div>
 
 			<footer>
 				<p>&copy; 2013 by Michael Rotmanov</p>

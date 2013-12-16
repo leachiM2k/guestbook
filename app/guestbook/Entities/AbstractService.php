@@ -28,11 +28,6 @@ abstract class AbstractService
 		throw new \RuntimeException("Not implemented");
 	}
 
-	public function updateEntity($entity)
-	{
-		throw new \RuntimeException("Not implemented");
-	}
-
 	public function persistEntity($entity)
 	{
 		throw new \RuntimeException("Not implemented");

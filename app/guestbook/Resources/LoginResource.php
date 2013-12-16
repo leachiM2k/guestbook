@@ -21,8 +21,7 @@ class LoginResource extends AbstractResource
 		}
 		$data = array();
 
-		$renderer = new ViewRenderer();
-		$renderer->setData($data);
+		$renderer = new ViewRenderer($data);
 		$renderer->setTemplateFileName($this->viewName);
 		return $renderer;
 	}

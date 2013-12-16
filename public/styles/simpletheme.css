@@ -1,7 +1,7 @@
 *, *:before, *:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
@@ -21,7 +21,7 @@ header {
 }
 
 footer {
-	padding: 1px;
+	padding: 1px 10px;
 }
 
 .container {
@@ -39,11 +39,11 @@ footer {
 .userBox {
 	background: #A12E33;
 	padding: 5px 8px;
-    color: #F2EEEA;
+	color: #F2EEEA;
 }
 
 .userBox a {
-	color: #F2EEEA;	
+	color: #F2EEEA;
 }
 
 label {
@@ -54,21 +54,26 @@ label {
 
 input, button, textarea {
 	font-family: Georgia, Arial, Helvetica, sans-serif;
-    border: 1px solid #5F5E5D;
-    padding: 3px;
+	border: 1px solid #5F5E5D;
+	padding: 3px;
 }
 
 button {
 	display: block;
 	border: 1px solid #B4B2AE;
 	padding: 3px 5px;
+	margin: 5px 0;
 	background: #f2eeea;
 	background: -moz-linear-gradient(top, #f2eeea 0%, #b4b2ae 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f2eeea), color-stop(100%,#b4b2ae));
-	background: -webkit-linear-gradient(top, #f2eeea 0%,#b4b2ae 100%);
-	background: -o-linear-gradient(top, #f2eeea 0%,#b4b2ae 100%);
-	background: -ms-linear-gradient(top, #f2eeea 0%,#b4b2ae 100%);
-	background: linear-gradient(to bottom, #f2eeea 0%,#b4b2ae 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2eeea), color-stop(100%, #b4b2ae));
+	background: -webkit-linear-gradient(top, #f2eeea 0%, #b4b2ae 100%);
+	background: -o-linear-gradient(top, #f2eeea 0%, #b4b2ae 100%);
+	background: -ms-linear-gradient(top, #f2eeea 0%, #b4b2ae 100%);
+	background: linear-gradient(to bottom, #f2eeea 0%, #b4b2ae 100%);
+}
+
+input, textarea {
+	width: 320px;
 }
 
 .entry {
@@ -85,21 +90,59 @@ button {
 	display: inline;
 }
 
-.entry .entryControl {
+.entry .rightSideRemarks {
 	float: right;
 }
 
+.entry .entryControl {
+	text-align: right;
+}
+
+.inactive {
+	color: #5F5E5D;
+}
+
+.reviewMark {
+	display: none;
+	visibility: hidden;
+}
+
+.inactive .reviewMark {
+	display: block;
+	visibility: visible;
+	float: right;
+	padding: 2px;
+}
+
 .container .publishLink {
-    background: #E68A8E;
-    padding: 5px;
-    color: white;
-    font-weight: bold;
+	background: #E68A8E;
+	padding: 2px;
+	color: white;
+	font-weight: bold;
 }
 
 #authError {
-    border: 1px dashed #A12E33;
-    margin: 10px 0;
-    padding: 10px;
-    color: white;
-    background: #E68A8E;
+	border: 1px dashed #A12E33;
+	margin: 10px 0;
+	padding: 10px;
+	color: white;
+	background: #E68A8E;
+}
+
+#demoNote {
+	border: 2px solid #5F5E5D;
+	padding: 10px;
+	background-color: #e6d553;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-webkit-box-shadow: 1px 1px 10px 0 #000000;
+	box-shadow: 1px 1px 10px 0 #000000;
+	position: absolute;
+	right: 20%;
+	-moz-transform: rotate(5deg);
+	-webkit-transform: rotate(5deg);
+	-o-transform: rotate(5deg);
+	-ms-transform: rotate(5deg);
+	transform: rotate(5deg);
 }

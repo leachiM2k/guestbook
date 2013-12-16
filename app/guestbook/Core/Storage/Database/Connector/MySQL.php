@@ -43,7 +43,7 @@ class MySQL implements ConnectorInterface
 		}
 	}
 
-	public function fetch($table, $fieldsAndValues = null, $orderBy = null)
+	public function fetch($table, $fieldsAndValues = null, $orderBy = null, $orderSortAscending = true)
 	{
 		$table = $this->connection->real_escape_string($table);
 		$query = "SELECT * FROM $table";
@@ -52,6 +52,7 @@ class MySQL implements ConnectorInterface
 		}
 		if (isset($orderBy)) {
 			$query .= " ORDER BY " . $this->connection->real_escape_string($orderBy);
+			$query .= $orderSortAscending ? " ASC" : " DESC";
 		}
 		$resultObject = $this->connection->query($query);
 
@@ -80,11 +81,11 @@ class MySQL implements ConnectorInterface
 		return $result !== false;
 	}
 
-	public function update($table, $fieldsAndValues)
+	public function update($table, $fieldsAndValues, $whereFieldsAndValues)
 	{
 		$table = $this->connection->real_escape_string($table);
 		$query = "UPDATE $table SET " . join(", ", $this->generateValueStatementPart($fieldsAndValues));
-
+		$query .= " WHERE " . join(" AND ", $this->generateValueStatementPart($whereFieldsAndValues));
 		$result = $this->connection->query($query);
 
 		return $result !== false;

@@ -19,7 +19,7 @@ $routeParser = new IniRouteParser($applicationPath . '/routes.ini');
 
 $configuration = new Configuration();
 $configuration->setConfig($config);
-$configuration->setDatabase(new DatabaseFactory($configuration->getConfig()['database']));
+$configuration->setDatabase(new DatabaseFactory($config['database']));
 $configuration->setRouter(new Router($routeParser->parse()));
 $configuration->setSession(new Session(new PhpSessionAdapter()));
 $authService = new UserService($configuration->getDatabase()->getConnector());

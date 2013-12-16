@@ -11,7 +11,6 @@ use guestbook\Core\Renderer\AbstractRenderer;
 use guestbook\Core\Resource\InternalServerErrorResource;
 use guestbook\Core\Resource\NotFoundResource;
 use guestbook\Core\Router\RouteNotFoundException;
-use guestbook\Core\Router\RouteResource;
 
 class FrontController
 {
