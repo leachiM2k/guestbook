@@ -12,14 +12,38 @@ use guestbook\Entities\EntityNotFoundException;
 use guestbook\Entities\User;
 use guestbook\Entities\UserService;
 
+/**
+ * Class Auth authorizes user against an UserService and stores it in a session
+ * TODO: This is not abstract enough
+ *
+ * @package guestbook\Core\Auth
+ */
 class Auth
 {
+	/**
+	 * @var \guestbook\Core\Session\Session
+	 */
 	protected $session;
+	/**
+	 * @var \guestbook\Entities\UserService
+	 */
 	protected $userService;
 
+	/**
+	 * @var string Holder for username
+	 */
 	protected $username;
+	/**
+	 * @var string Holder for password
+	 */
 	protected $password;
 
+	/**
+	 * Constructor with dependency injection
+	 *
+	 * @param Session $session
+	 * @param UserService $userService
+	 */
 	public function __construct(Session $session, UserService $userService)
 	{
 		$this->session = $session;
@@ -27,6 +51,8 @@ class Auth
 	}
 
 	/**
+	 * setter for password
+	 *
 	 * @param mixed $password
 	 */
 	public function setPassword($password)
@@ -35,6 +61,8 @@ class Auth
 	}
 
 	/**
+	 * getter for password
+	 *
 	 * @return mixed
 	 */
 	public function getPassword()
@@ -43,6 +71,8 @@ class Auth
 	}
 
 	/**
+	 * setter for username
+	 *
 	 * @param mixed $username
 	 */
 	public function setUsername($username)
@@ -51,6 +81,8 @@ class Auth
 	}
 
 	/**
+	 * getter for username
+	 *
 	 * @return mixed
 	 */
 	public function getUsername()
@@ -58,6 +90,12 @@ class Auth
 		return $this->username;
 	}
 
+	/**
+	 * Authentication method, Uses blowfish crypt to check password hash.
+	 *
+	 * @return bool returns true for success otherwise throws AuthExceptions
+	 * @throws AuthException
+	 */
 	public function authenticate()
 	{
 		try
@@ -76,12 +114,20 @@ class Auth
 		return true;
 	}
 
+	/**
+	 * Check for user authentication
+	 *
+	 * @return bool
+	 */
 	public function isAuthenticated()
 	{
 		$loggedin = $this->session->getData("loggedin");
 		return isset($loggedin) && $loggedin == true;
 	}
 
+	/**
+	 * Destorys session completely
+	 */
 	public function destroy()
 	{
 		return $this->session->destroy();
@@ -89,6 +135,8 @@ class Auth
 
 
 	/**
+	 * Returns data of authenticated user
+	 *
 	 * @return User
 	 */
 	public function getUserData()

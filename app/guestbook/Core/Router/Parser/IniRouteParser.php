@@ -10,10 +10,22 @@ namespace guestbook\Core\Router\Parser;
 use guestbook\Core\Router\Route;
 use guestbook\Core\Router\RouteResource;
 
+/**
+ * Class IniRouteParser parses ini files to get routing informations from them
+ *
+ * @package guestbook\Core\Router\Parser
+ */
 class IniRouteParser
 {
+
+	/**
+	 * @var array holder for loaded ini file
+	 */
 	protected $iniRoutes = array();
 
+	/**
+	 * @param string $configFile ini file to load
+	 */
 	public function __construct($configFile = null)
 	{
 		if (isset($configFile))
@@ -22,16 +34,32 @@ class IniRouteParser
 		}
 	}
 
+	/**
+	 * Loads file from file system and sets it
+	 *
+	 * @param string $fileName
+	 */
 	public function loadIniRoutes($fileName)
 	{
 		$this->setIniRoutes(parse_ini_file($fileName, true));
 	}
 
-	public function setIniRoutes($iniRoutes)
+	/**
+	 * public setter for iniRoutes
+	 *
+	 * @param array $iniRoutes
+	 */
+	public function setIniRoutes(array $iniRoutes)
 	{
 		$this->iniRoutes = $iniRoutes;
 	}
 
+	/**
+	 * parses route entry to multi-dimensional array and converts it to
+	 * Route entries, that are suitable for Router
+	 *
+	 * @return array of guestbook\Core\Router\Route
+	 */
 	public function parse()
 	{
 		$splittedIniRoutes = array();

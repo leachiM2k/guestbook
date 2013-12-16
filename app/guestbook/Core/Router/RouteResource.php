@@ -9,17 +9,24 @@ namespace guestbook\Core\Router;
 
 use guestbook\Core\Resource\AbstractResource;
 
+/**
+ * Class RouteResource holds and creates instances of resources
+ * @package guestbook\Core\Router
+ */
 class RouteResource
 {
 	/**
-	 * @var AbstractResource
+	 * @var string resource name
 	 */
 	private $resource;
 	/**
-	 * @var AbstractResource
+	 * @var AbstractResource instance of resource
 	 */
 	private $instance;
 
+	/**
+	 * @param string $resource
+	 */
 	public function __construct($resource = null)
 	{
 		if (isset($resource))
@@ -28,11 +35,23 @@ class RouteResource
 		}
 	}
 
+	/**
+	 * setter for resource's name
+	 *
+	 * @param string $resource
+	 */
 	public function setResource($resource)
 	{
 		$this->resource = $resource;
 	}
 
+	/**
+	 * Tries to get an instance of resource and
+	 * throws an exception if no resource was found
+	 *
+	 * @return AbstractResource
+	 * @throws RouteNotFoundException
+	 */
 	public function getInstance()
 	{
 		if (!isset($this->instance))

@@ -8,7 +8,8 @@
 namespace guestbook\Core\Resource;
 
 
-class AbstractResourceTest extends \PHPUnit_Framework_TestCase {
+class AbstractResourceTest extends \PHPUnit_Framework_TestCase
+{
 
 	/**
 	 * @var AbstractResource

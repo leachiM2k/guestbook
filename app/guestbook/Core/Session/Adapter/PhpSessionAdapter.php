@@ -8,6 +8,12 @@
 namespace guestbook\Core\Session\Adapter;
 
 
+/**
+ * Class PhpSessionAdapter stores all session data in php session store
+ * Default is also to use cookie for the id
+ *
+ * @package guestbook\Core\Session\Adapter
+ */
 class PhpSessionAdapter implements SessionAdapterInterface
 {
 	public function start()

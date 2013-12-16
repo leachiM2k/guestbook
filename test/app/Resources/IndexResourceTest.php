@@ -2,7 +2,6 @@
 namespace guestbook\Resources;
 
 use guestbook\Core\Configuration;
-use guestbook\Core\Storage\Database\DatabaseFactory;
 
 class AbstractResourceTest extends \PHPUnit_Framework_TestCase
 {
@@ -11,8 +10,8 @@ class AbstractResourceTest extends \PHPUnit_Framework_TestCase
 	 */
 	private $resource;
 
-    public function setUp()
-    {
+	public function setUp()
+	{
 		$connector = $this->getMockBuilder('guestbook\Core\Storage\Database\Connector\ConnectorInterface')
 			->disableOriginalConstructor()
 			->getMock();
@@ -32,14 +31,14 @@ class AbstractResourceTest extends \PHPUnit_Framework_TestCase
 		$configuration = new Configuration();
 		$configuration->setDatabase($database);
 		$configuration->setAuth($auth);
-        $this->resource = new IndexResource();
+		$this->resource = new IndexResource();
 		$this->resource->setConfiguration($configuration);
-    }
+	}
 
-    public function testGetImplemented()
-    {
-        $result = $this->resource->get();
+	public function testGetImplemented()
+	{
+		$result = $this->resource->get();
 		$this->assertInstanceOf('guestbook\Core\Renderer\AbstractRenderer', $result);
-    }
+	}
 
 }

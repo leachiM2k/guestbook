@@ -8,8 +8,17 @@
 namespace guestbook\Core\Session\Adapter;
 
 
+/**
+ * Class MemorySessionAdapter stores all session data in memory for one request.
+ * Useful for testing
+ *
+ * @package guestbook\Core\Session\Adapter
+ */
 class MemorySessionAdapter implements SessionAdapterInterface
 {
+	/**
+	 * @var string temporary session storage array
+	 */
 	public $sessionStorage;
 
 	public function start()

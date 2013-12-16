@@ -7,18 +7,38 @@
 
 namespace guestbook\Core\Router;
 
+/**
+ * Class Router find best possible route for given URL
+ *
+ * @package guestbook\Core\Router
+ */
 class Router
 {
+	/**
+	 * @var array of Route
+	 */
 	private $routes = array();
 
+	/**
+	 * @param array|null $routes array of \guestbook\Core\Router\Route
+	 */
 	public function __construct($routes = null)
 	{
 		if (isset($routes))
 		{
 			$this->setRoutes($routes);
 		}
+
 	}
 
+	/**
+	 * tries to find the best route and returns it,
+	 * otherwise throw an exception
+	 *
+	 * @param string $url
+	 * @return Route
+	 * @throws RouteNotFoundException
+	 */
 	public function route($url)
 	{
 		foreach ($this->getRoutes() as $route)
@@ -32,6 +52,13 @@ class Router
 		throw new RouteNotFoundException("No Route found for " . $url);
 	}
 
+	/**
+	 * finds a route by name (e.g. for generation of absolute URLs)
+	 *
+	 * @param  string $name
+	 * @return Route
+	 * @throws RouteNotFoundException
+	 */
 	public function getRouteByName($name)
 	{
 		foreach ($this->getRoutes() as $route)
@@ -41,10 +68,14 @@ class Router
 				return $route;
 			}
 		}
+
+		throw new RouteNotFoundException("No Route found for name " . $name);
 	}
 
 	/**
-	 * @return array
+	 * getter for all known routes
+	 *
+	 * @return array of Route
 	 */
 	public function getRoutes()
 	{
@@ -52,6 +83,8 @@ class Router
 	}
 
 	/**
+	 * setter for known routes
+	 *
 	 * @param array $routes
 	 */
 	public function setRoutes($routes)

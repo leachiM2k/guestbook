@@ -9,8 +9,19 @@
 namespace guestbook\Core\Renderer;
 
 
+/**
+ * Class ViewRenderer renders view files (mostly phtml)
+ *
+ * @package guestbook\Core\Renderer
+ */
 class ViewRenderer extends AbstractRenderer
 {
+	/**
+	 * renders view and returns HTML
+	 *
+	 * @return string rendered HTML
+	 * @throws ViewNotFoundException is thrown when a view was not found in templateBasePath
+	 */
 	public function render()
 	{
 		$templateFileName = $this->templateBasePath . '/' . $this->templateFileName;

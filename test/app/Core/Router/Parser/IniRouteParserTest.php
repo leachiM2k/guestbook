@@ -36,10 +36,10 @@ class IniRouteParserTest extends \PHPUnit_Framework_TestCase
 	public function testParseFromArray()
 	{
 		$iniEntries = array(
-			'home_first_url' => '/',
+			'home_first_url'      => '/',
 			'home_first_resource' => 'testapp\Resource\HomeResource',
-			'about_url' => '/about',
-			'about_resource' => 'testapp\Resource\AboutResource',
+			'about_url'           => '/about',
+			'about_resource'      => 'testapp\Resource\AboutResource',
 		);
 
 		$parser = new IniRouteParser();

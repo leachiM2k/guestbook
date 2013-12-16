@@ -8,6 +8,10 @@
 namespace guestbook\Core\Auth;
 
 
+/**
+ * Class AuthException will be thrown on wrong user credentials
+ * @package guestbook\Core\Auth
+ */
 class AuthException extends \RuntimeException
 {
 	protected $message = "Combination of username and password is not correct";

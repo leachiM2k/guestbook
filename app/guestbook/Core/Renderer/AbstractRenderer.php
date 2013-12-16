@@ -7,15 +7,40 @@
 
 namespace guestbook\Core\Renderer;
 
+use guestbook\Core\Configuration;
+
+/**
+ * Class AbstractRenderer provides basic methods for all renderers and defines some interfaces
+ *
+ * @package guestbook\Core\Renderer
+ */
 abstract class AbstractRenderer
 {
+	/**
+	 * @var array Holder for view data
+	 */
 	protected $data = array();
 
+	/**
+	 * @var string Path for templates
+	 */
 	protected $templateBasePath = ".";
+	/**
+	 * @var string template file name. mostly set by resource
+	 */
 	protected $templateFileName;
+	/**
+	 * @var string base URL of application. needed to build urls.
+	 */
 	protected $appBasePath;
+	/**
+	 * @var Configuration
+	 */
 	protected $configuration;
 
+	/**
+	 * @param array $data view data
+	 */
 	public function __construct(array $data = null)
 	{
 		if (isset($data))
@@ -24,11 +49,22 @@ abstract class AbstractRenderer
 		}
 	}
 
+	/**
+	 * setter for view data
+	 *
+	 * @param array $data view data
+	 */
 	public function setData(array $data)
 	{
 		$this->data = $data;
 	}
 
+	/**
+	 * Magical getter used by views to retrieve stored data
+	 *
+	 * @param $name
+	 * @return mixed
+	 */
 	public function __get($name)
 	{
 		if (isset($this->data[$name]))
@@ -37,6 +73,12 @@ abstract class AbstractRenderer
 		}
 	}
 
+	/**
+	 * Magical isset used by views to check for stored data
+	 *
+	 * @param $name
+	 * @return bool
+	 */
 	function __isset($name)
 	{
 		if (isset($this->data[$name]))
@@ -51,6 +93,12 @@ abstract class AbstractRenderer
 	}
 
 
+	/**
+	 * gets absolute url for known route
+	 *
+	 * @param $routeName registered route name
+	 * @return string absolute URL or empty string
+	 */
 	public function getUrl($routeName)
 	{
 		$route = $this->getConfiguration()->getRouter()->getRouteByName($routeName);
@@ -61,12 +109,19 @@ abstract class AbstractRenderer
 		return "";
 	}
 
+	/**
+	 * setter for template base path
+	 *
+	 * @param $templateBasePath
+	 */
 	public function setTemplateBasePath($templateBasePath)
 	{
 		$this->templateBasePath = $templateBasePath;
 	}
 
 	/**
+	 * setter for template file name. we'll look for it in templatePath
+	 *
 	 * @param string $templateFileName
 	 */
 	public function setTemplateFileName($templateFileName)
@@ -75,6 +130,8 @@ abstract class AbstractRenderer
 	}
 
 	/**
+	 * setter for applicaton base path
+	 *
 	 * @param string $appBasePath
 	 */
 	public function setAppBasePath($appBasePath)
@@ -83,6 +140,8 @@ abstract class AbstractRenderer
 	}
 
 	/**
+	 * getter for applicaton base path
+	 *
 	 * @return string
 	 */
 	public function getAppBasePath()
@@ -106,5 +165,10 @@ abstract class AbstractRenderer
 		return $this->configuration;
 	}
 
+	/**
+	 * This method returns rendered string based on used renderer
+	 *
+	 * @return string
+	 */
 	abstract public function render();
 } 

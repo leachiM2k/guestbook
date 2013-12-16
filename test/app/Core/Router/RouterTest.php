@@ -7,8 +7,11 @@
 
 namespace guestbook\Core\Router;
 
-class RouterTest extends \PHPUnit_Framework_TestCase {
-
+class RouterTest extends \PHPUnit_Framework_TestCase
+{
+	/**
+	 * @var Router
+	 */
 	private $router;
 
 	public function setUp()
@@ -35,6 +38,22 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
 		$result = $this->router->route("/test/page");
 		$this->assertSame($testResource, $result);
 	}
+
+	public function testRouteByName()
+	{
+		$testResource = new RouteResource();
+		$expectedRoute = new Route("expectedRoute", "/test/page222", $testResource);
+
+		$routeList = array(
+			new Route("testRoute", "/test/page", $testResource),
+			$expectedRoute
+		);
+		$this->router->setRoutes($routeList);
+		$result = $this->router->getRouteByName("expectedRoute");
+		$this->assertSame($expectedRoute, $result);
+
+	}
+
 
 }
  
