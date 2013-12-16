@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Guestbook Login</title>
+		<link rel="stylesheet" type="text/css" href="<?=$this->getAppBasePath(); ?>/styles/simpletheme.css" />
+	</head>
+
+	<body>
+		<div class="container">
+			<header>
+				<h1>Simple Guestbook - Login</h1>
+			</header>
+			
+			<div class="content">
+
+				<?php if($this->authError) : ?>
+					<div id="authError">
+						Sorry, it was impossible for us to get an access for you. Please check your username and password.
+					</div>
+				<?php endif;?>
+				
+				<div id="loginForm">
+					<form method="post">
+						<label for="formUsername">Username</label>
+						<input id="formUsername" type="text" name="username" required value="<?=isset($this->username) ? htmlentities($this->username) : '';?>" />
+						<label for="formPassword">Password</label>
+						<input id="formPassword" type="password" name="password" required />
+						<button type="submit">Login</button>
+					</form>
+				</div>
+
+			</div>
+
+
+			<footer>
+				<p>&copy; 2013 by Michael Rotmanov</p>
+			</footer>
+		</div>
+	</body>
+</html>

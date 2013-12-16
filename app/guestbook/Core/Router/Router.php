@@ -26,7 +26,17 @@ class Router
 			}
 		}
 
-		throw new RouteNotFoundException();
+		throw new RouteNotFoundException("No Route found for " . $url);
+	}
+
+	public function getRouteByName($name)
+	{
+		foreach ($this->getRoutes() as $route) {
+			if($route->getName() == $name)
+			{
+				return $route;
+			}
+		}
 	}
 
 	/**

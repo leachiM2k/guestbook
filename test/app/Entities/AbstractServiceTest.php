@@ -46,6 +46,10 @@ class TestService extends AbstractService
 	public function fetchAll()
 	{
 	}
+
+	public function fetchById($id)
+	{
+	}
 }
 
 class TestEntity

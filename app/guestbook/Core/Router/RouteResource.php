@@ -36,6 +36,9 @@ class RouteResource
 	public function getInstance()
 	{
 		if (!isset($this->instance)) {
+			if(!class_exists($this->resource)) {
+				throw new RouteNotFoundException("Resource " . $this->resource . " is not available.");
+			}
 			$this->instance = new $this->resource;
 		}
 		return $this->instance;

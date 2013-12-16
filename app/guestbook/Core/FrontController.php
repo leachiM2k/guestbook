@@ -7,8 +7,10 @@
 
 namespace guestbook\Core;
 
+use guestbook\Core\Renderer\AbstractRenderer;
+use guestbook\Core\Resource\InternalServerErrorResource;
+use guestbook\Core\Resource\NotFoundResource;
 use guestbook\Core\Router\RouteNotFoundException;
-use guestbook\Core\Router\Router;
 use guestbook\Core\Router\RouteResource;
 
 class FrontController
@@ -28,21 +30,34 @@ class FrontController
 
 	public function dispatch($url, $method)
 	{
-		/**
-		 * @var RouteResource
-		 */
 		try {
 			$resource = $this->configuration->getRouter()->route($url);
+			$resourceResponse = $this->executeResourceMethod($method, $resource);
 		} catch (RouteNotFoundException $e) {
 			$this->httpCode = 404;
 			$this->httpMessage = "Not Found";
-			$resource = new RouteResource('guestbook\Core\Resource\NotFoundResource');
+			$resourceInstance = new NotFoundResource();
+			$resourceResponse = $resourceInstance->get($e);
+		} catch (\RuntimeException $e) {
+			$this->httpCode = 500;
+			$this->httpMessage = "Internal Server Error";
+			$resourceInstance = new InternalServerErrorResource();
+			$resourceResponse = $resourceInstance->get($e);
 		}
 
+		return $resourceResponse;
+	}
+
+	/**
+	 * @param $method
+	 * @param $resource
+	 * @return AbstractRenderer
+	 */
+	protected function executeResourceMethod($method, $resource)
+	{
 		$resourceInstance = $resource->getInstance();
 		$resourceInstance->setConfiguration($this->configuration);
 		$resourceResponse = $resourceInstance->$method();
-
 		return $resourceResponse;
 	}
 

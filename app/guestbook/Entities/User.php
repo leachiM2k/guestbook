@@ -110,4 +110,9 @@ class User
 	{
 		return $this->role;
 	}
+
+	public function isAdmin()
+	{
+		return $this->role == "admin";
+	}
 }

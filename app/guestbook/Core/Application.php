@@ -29,16 +29,17 @@ class Application
 	public function run()
 	{
 		$method = strtolower($_SERVER['REQUEST_METHOD']);
-		$url = $this->getUrl();
+		$url = $this->getAfterBaseUrl();
 
 		$frontController = new FrontController($this->configuration);
 		$renderer = $frontController->dispatch($url, $method);
 
-		if($frontController->httpCode != 200)
-		{
-			header('HTTP/1.0 '.$frontController->httpCode.' '.$frontController->httpMessage);
+		if ($frontController->httpCode != 200) {
+			header('HTTP/1.0 ' . $frontController->httpCode . ' ' . $frontController->httpMessage);
 		}
 
+		$renderer->setAppBasePath($this->getFullBaseUrl());
+		$renderer->setConfiguration($this->configuration);
 		$renderer->setTemplateBasePath($this->config['general']['templatePath']);
 		echo $renderer->render();
 	}
@@ -46,20 +47,43 @@ class Application
 	/**
 	 * @return mixed|string
 	 */
-	protected function getUrl()
+	protected function getAfterBaseUrl()
 	{
 		$url = $_SERVER['REQUEST_URI'];
-		// strip GET variables from URL
-		if (($pos = strpos($url, '?')) !== false) {
-			$url = substr($url, 0, $pos);
-		}
+		$url = preg_replace('/\/?\?.*$/', '', $url);
 
 		if (isset($this->config['general']['basePath'])) {
 			$regex = "/^" . preg_quote($this->config['general']['basePath'], "/") . "/";
 			$url = preg_replace($regex, '', $url);
-			return $url;
 		}
 		return $url;
+	}
+
+	protected function getFullBaseUrl()
+	{
+		if (isset($_SERVER['REQUEST_SCHEME'])) {
+			$schema = strtolower($_SERVER['REQUEST_SCHEME']);
+		} elseif (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
+			$schema = "https";
+		} else {
+			$schema = "http";
+		}
+
+		if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+			$host = $_SERVER['HTTP_X_FORWARDED_HOST'];
+		} elseif (isset($_SERVER['HTTP_HOST'])) {
+			$host = $_SERVER['HTTP_HOST'];
+		} else {
+			$host = $_SERVER['SERVER_NAME'];
+		}
+
+		$url = $_SERVER['REQUEST_URI'];
+		if (isset($this->config['general']['basePath'])) {
+			$regex = "/^(" . preg_quote($this->config['general']['basePath'], "/") . ").*/";
+			$url = preg_replace($regex, '$1', $url);
+		}
+
+		return "$schema://$host$url";
 	}
 
 } 

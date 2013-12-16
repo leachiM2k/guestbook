@@ -39,6 +39,7 @@ footer {
 .userBox {
 	background: #A12E33;
 	padding: 5px 8px;
+    color: #F2EEEA;
 }
 
 .userBox a {
@@ -53,6 +54,8 @@ label {
 
 input, button, textarea {
 	font-family: Georgia, Arial, Helvetica, sans-serif;
+    border: 1px solid #5F5E5D;
+    padding: 3px;
 }
 
 button {
@@ -84,4 +87,19 @@ button {
 
 .entry .entryControl {
 	float: right;
+}
+
+.container .publishLink {
+    background: #E68A8E;
+    padding: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+#authError {
+    border: 1px dashed #A12E33;
+    margin: 10px 0;
+    padding: 10px;
+    color: white;
+    background: #E68A8E;
 }

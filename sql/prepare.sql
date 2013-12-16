@@ -7,7 +7,7 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users
 (
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  login VARCHAR(50) NOT NULL,
+  login VARCHAR(50) NOT NULL UNIQUE,
   passwordHash VARCHAR(100) NOT NULL ,
   role ENUM('admin','user') NOT NULL,
   name VARCHAR(50) NOT NULL,
@@ -19,6 +19,7 @@ CREATE TABLE entries
   id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
   userId INT NOT NULL,
   text VARCHAR(1000) NOT NULL,
+  state ENUM('active','inactive') DEFAULT 'inactive' NOT NULL,
   date DATETIME NOT NULL,
   CONSTRAINT userFK FOREIGN KEY ( userId ) REFERENCES users ( id ) ON DELETE CASCADE
 ) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_general_ci;

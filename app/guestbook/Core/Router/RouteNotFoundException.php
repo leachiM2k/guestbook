@@ -10,5 +10,4 @@ namespace guestbook\Core\Router;
 
 class RouteNotFoundException extends \RuntimeException
 {
-
 } 

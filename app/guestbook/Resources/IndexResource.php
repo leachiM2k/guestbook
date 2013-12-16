@@ -13,25 +13,24 @@ use guestbook\Entities\EntryService;
 
 class IndexResource extends AbstractResource
 {
-	public $viewName;
-
-	public function __construct()
-	{
-		$this->viewName = strtolower(preg_replace('/.*\\\\([a-z0-9]*)resource$/i', '\1', __CLASS__)) . '.phtml';
-	}
-
 	public function get()
-    {
+	{
 		$entryService = new EntryService($this->getConfiguration()->getDatabase()->getConnector());
 
+		$userData = null;
+		if ($this->getConfiguration()->getAuth()->isAuthenticated()) {
+			$userData = $this->getConfiguration()->getAuth()->getUserData();
+		}
+
 		$data = array(
-			'entries' => $entryService->fetchAll()
+			'entries' => $entryService->fetchAll(),
+			'userData' => $userData
 		);
 
 		$renderer = new ViewRenderer();
 		$renderer->setData($data);
 		$renderer->setTemplateFileName($this->viewName);
 		return $renderer;
-    }
+	}
 
 } 

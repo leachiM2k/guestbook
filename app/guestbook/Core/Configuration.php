@@ -8,13 +8,17 @@
 namespace guestbook\Core;
 
 use guestbook\Core\Router\Router;
-use \guestbook\Core\Storage\Database\DatabaseFactory;
+use guestbook\Core\Session\Session;
+use guestbook\Core\Storage\Database\DatabaseFactory;
+use guestbook\Core\Auth\Auth;
 
 class Configuration
 {
 	private $database;
 	private $config;
 	private $router;
+	private $session;
+	private $auth;
 
 	/**
 	 * @param array $config
@@ -62,6 +66,38 @@ class Configuration
 	public function getRouter()
 	{
 		return $this->router;
+	}
+
+	/**
+	 * @param Session $session
+	 */
+	public function setSession($session)
+	{
+		$this->session = $session;
+	}
+
+	/**
+	 * @return Session
+	 */
+	public function getSession()
+	{
+		return $this->session;
+	}
+
+	/**
+	 * @param Auth $auth
+	 */
+	public function setAuth($auth)
+	{
+		$this->auth = $auth;
+	}
+
+	/**
+	 * @return Auth
+	 */
+	public function getAuth()
+	{
+		return $this->auth;
 	}
 
 } 

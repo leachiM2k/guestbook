@@ -93,7 +93,7 @@ class MySQL implements ConnectorInterface
 	public function delete($table, $fieldsAndValues)
 	{
 		$table = $this->connection->real_escape_string($table);
-		$query = "DROP $table WHERE " . join(" AND ", $this->generateValueStatementPart($fieldsAndValues));
+		$query = "DELETE FROM $table WHERE " . join(" AND ", $this->generateValueStatementPart($fieldsAndValues));
 
 		$result = $this->connection->query($query);
 

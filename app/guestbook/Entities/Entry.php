@@ -11,6 +11,7 @@ class Entry
 	private $id;
 	private $userId;
 	private $text;
+	private $state;
 	private $date;
 
 	/**
@@ -18,7 +19,7 @@ class Entry
 	 */
 	private $userService;
 
-	public function __construct($userService)
+	public function __construct($userService = null)
 	{
 		$this->userService = $userService;
 	}
@@ -72,6 +73,27 @@ class Entry
 	}
 
 	/**
+	 * @param mixed $state
+	 */
+	public function setState($state)
+	{
+		$this->state = $state;
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getState()
+	{
+		return $this->state;
+	}
+
+	public function isActive()
+	{
+		return $this->state == "active";
+	}
+
+	/**
 	 * @param mixed $userId
 	 */
 	public function setUserId($userId)
@@ -89,7 +111,20 @@ class Entry
 
 	public function getUser()
 	{
-		return $this->userService->fetchById($this->userId);
+		if (isset($this->userService)) {
+			return $this->userService->fetchById($this->userId);
+		}
+	}
+
+	public function getPersistableFields()
+	{
+		return array(
+			'id',
+			'userId',
+			'text',
+			'state',
+			'date',
+		);
 	}
 
 }

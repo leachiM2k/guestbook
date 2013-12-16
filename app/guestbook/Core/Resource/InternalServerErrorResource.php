@@ -9,13 +9,13 @@ namespace guestbook\Core\Resource;
 
 use guestbook\Core\Renderer\ViewRenderer;
 
-class NotFoundResource extends AbstractResource
+class InternalServerErrorResource extends AbstractResource
 {
     public function get()
     {
 		$exception = func_get_arg(0);
 		$response = new ViewRenderer(array('exception' => $exception));
-		$response->setTemplateFileName('default/404.phtml');
+		$response->setTemplateFileName('default/500.phtml');
 		return $response;
     }
 

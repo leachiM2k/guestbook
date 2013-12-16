@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Guestbook</title>
-		<link rel="stylesheet" type="text/css" href="styles/simpletheme.css" />
+		<link rel="stylesheet" type="text/css" href="<?=$this->getAppBasePath(); ?>/styles/simpletheme.css" />
 	</head>
 
 	<body>
@@ -13,30 +13,44 @@
 			</header>
 			
 			<div class="userBox">
-				<a href="/login">login to write a new entry</a>
+				<?php if(!isset($this->userData)) : ?>
+					<a href="<?=$this->getUrl("login"); ?>">login to write a new entry</a>
+				<?php else: ?>
+					Logged in as <?=$this->userData->getName();?>
+					<a href="<?=$this->getUrl("logout"); ?>">logout</a>
+				<?php endif; ?>
 			</div>
 			
 			<div class="content">
-				
+				<?php if(isset($this->userData)) : ?>
 				<div id="entryForm">
-					<form>
+					<form method="post" action="<?=$this->getUrl("entry_send"); ?>">
 						<label for="formText">Text</label>
-						<textarea id="formText" cols=50 rows=10 placeholder="Write your entry here"></textarea>
+						<textarea id="formText" name="text" cols=50 rows=10 placeholder="Write your entry here"></textarea>
 						<button type="submit">Send your entry</button>
 					</form>
 				</div>
+				<?php endif; ?>
 				
 				<div class="entryContainer">
 					
 					<h2>Entries</h2>
 
-					<?php foreach($this->entries as $entry) : ?>
+					<?php foreach($this->entries as $entry) :
+						if((!isset($this->userData) || !$this->userData->isAdmin()) && !$entry->isActive()) continue;
+					?>
 						<div class="entry">
+							<?php if(isset($this->userData) && $this->userData->isAdmin()) : ?>
 							<div class="entryControl">
-								<a href="/entry/publish/12/">publish</a> |
-								<a href="/entry/delete/12/">delete</a> |
-								<a href="/entry/edit/12/">edit</a>
+								<?php if($entry->isActive()) : ?>
+									<a href="<?=$this->getUrl("entry_unpublish"); ?>/?id=<?=$entry->getId();?>">unpublish</a> |
+								<?php else: ?>
+									<a class="publishLink" href="<?=$this->getUrl("entry_publish"); ?>/?id=<?=$entry->getId();?>">publish</a> |
+								<?php endif; ?>
+								<a href="<?=$this->getUrl("entry_delete"); ?>/?id=<?=$entry->getId();?>">delete</a> |
+								<a href="<?=$this->getUrl("entry_edit"); ?>/?id=<?=$entry->getId();?>">edit</a>
 							</div>
+							<?php endif; ?>
 							<div>
 								<a class="author" href="mailto:<?php echo $entry->getUser()->getEmail(); ?>">
 									<?php echo $entry->getUser()->getName(); ?>
@@ -52,7 +66,12 @@
 				
 			</div>
 			<div class="userBox">
-				<a href="/login">login to write a new entry</a>
+				<?php if(!isset($this->userData)) : ?>
+					<a href="<?=$this->getUrl("login"); ?>">login to write a new entry</a>
+				<?php else: ?>
+					Logged in as <?=$this->userData->getName();?>
+					<a href="<?=$this->getUrl("logout"); ?>">logout</a>
+				<?php endif; ?>
 			</div>
 
 			<footer>

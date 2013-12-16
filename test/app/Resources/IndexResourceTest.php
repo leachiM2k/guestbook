@@ -25,8 +25,13 @@ class AbstractResourceTest extends \PHPUnit_Framework_TestCase
 			->method('getConnector')
 			->will($this->returnValue($connector));
 
+		$auth = $this->getMockBuilder('guestbook\Core\Auth\Auth')
+			->disableOriginalConstructor()
+			->getMock();
+
 		$configuration = new Configuration();
 		$configuration->setDatabase($database);
+		$configuration->setAuth($auth);
         $this->resource = new IndexResource();
 		$this->resource->setConfiguration($configuration);
     }
