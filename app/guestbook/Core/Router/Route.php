@@ -27,7 +27,7 @@ class Route
 
 	public function matches($pattern)
 	{
-		if($this->url == $pattern)
+		if ($this->url == $pattern)
 		{
 			return true;
 		}

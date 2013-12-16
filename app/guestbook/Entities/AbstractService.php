@@ -36,9 +36,11 @@ abstract class AbstractService
 	protected function mapArrayToEntity($arrayValues)
 	{
 		$entity = $this->createEntity();
-		foreach ($arrayValues as $key => $value) {
+		foreach ($arrayValues as $key => $value)
+		{
 			$setter = 'set' . ucfirst($key);
-			if (method_exists($entity, $setter)) {
+			if (method_exists($entity, $setter))
+			{
 				$entity->$setter($value);
 			}
 		}
@@ -49,11 +51,14 @@ abstract class AbstractService
 	{
 		$array = array();
 		$fields = $entity->getPersistableFields();
-		foreach ($fields as $field) {
+		foreach ($fields as $field)
+		{
 			$getter = 'get' . ucfirst($field);
-			if (method_exists($entity, $getter)) {
+			if (method_exists($entity, $getter))
+			{
 				$value = $entity->$getter();
-				if(isset($value)) {
+				if (isset($value))
+				{
 					$array[$field] = $value;
 				}
 			}

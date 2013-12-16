@@ -22,7 +22,7 @@ class RouteResource
 
 	public function __construct($resource = null)
 	{
-		if(isset($resource))
+		if (isset($resource))
 		{
 			$this->setResource($resource);
 		}
@@ -35,8 +35,10 @@ class RouteResource
 
 	public function getInstance()
 	{
-		if (!isset($this->instance)) {
-			if(!class_exists($this->resource)) {
+		if (!isset($this->instance))
+		{
+			if (!class_exists($this->resource))
+			{
 				throw new RouteNotFoundException("Resource " . $this->resource . " is not available.");
 			}
 			$this->instance = new $this->resource;

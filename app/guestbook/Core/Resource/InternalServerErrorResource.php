@@ -11,12 +11,12 @@ use guestbook\Core\Renderer\ViewRenderer;
 
 class InternalServerErrorResource extends AbstractResource
 {
-    public function get()
-    {
+	public function get()
+	{
 		$exception = func_get_arg(0);
 		$response = new ViewRenderer(array('exception' => $exception));
 		$response->setTemplateFileName('default/500.phtml');
 		return $response;
-    }
+	}
 
 } 

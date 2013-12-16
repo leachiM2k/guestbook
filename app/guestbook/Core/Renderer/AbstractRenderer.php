@@ -18,7 +18,8 @@ abstract class AbstractRenderer
 
 	public function __construct(array $data = null)
 	{
-		if (isset($data)) {
+		if (isset($data))
+		{
 			$this->setData($data);
 		}
 	}
@@ -30,16 +31,20 @@ abstract class AbstractRenderer
 
 	public function __get($name)
 	{
-		if (isset($this->data[$name])) {
+		if (isset($this->data[$name]))
+		{
 			return $this->data[$name];
 		}
 	}
 
 	function __isset($name)
 	{
-		if (isset($this->data[$name])) {
+		if (isset($this->data[$name]))
+		{
 			return true;
-		} elseif (isset($this->$name)) {
+		}
+		elseif (isset($this->$name))
+		{
 			return true;
 		}
 		return false;
@@ -49,7 +54,8 @@ abstract class AbstractRenderer
 	public function getUrl($routeName)
 	{
 		$route = $this->getConfiguration()->getRouter()->getRouteByName($routeName);
-		if (isset($route)) {
+		if (isset($route))
+		{
 			return $this->getAppBasePath() . $route->getUrl();
 		}
 		return "";

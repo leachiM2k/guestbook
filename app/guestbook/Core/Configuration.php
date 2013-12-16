@@ -7,10 +7,10 @@
 
 namespace guestbook\Core;
 
+use guestbook\Core\Auth\Auth;
 use guestbook\Core\Router\Router;
 use guestbook\Core\Session\Session;
 use guestbook\Core\Storage\Database\DatabaseFactory;
-use guestbook\Core\Auth\Auth;
 
 class Configuration
 {

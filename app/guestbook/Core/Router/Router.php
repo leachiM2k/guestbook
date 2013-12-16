@@ -13,15 +13,18 @@ class Router
 
 	public function __construct($routes = null)
 	{
-		if (isset($routes)) {
+		if (isset($routes))
+		{
 			$this->setRoutes($routes);
 		}
 	}
 
 	public function route($url)
 	{
-		foreach ($this->getRoutes() as $route) {
-			if ($route->matches($url)) {
+		foreach ($this->getRoutes() as $route)
+		{
+			if ($route->matches($url))
+			{
 				return $route->getRouteResource();
 			}
 		}
@@ -31,8 +34,9 @@ class Router
 
 	public function getRouteByName($name)
 	{
-		foreach ($this->getRoutes() as $route) {
-			if($route->getName() == $name)
+		foreach ($this->getRoutes() as $route)
+		{
+			if ($route->getName() == $name)
 			{
 				return $route;
 			}

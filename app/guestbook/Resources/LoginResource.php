@@ -16,7 +16,8 @@ class LoginResource extends AbstractResource
 {
 	public function get()
 	{
-		if ($this->getConfiguration()->getAuth()->isAuthenticated()) {
+		if ($this->getConfiguration()->getAuth()->isAuthenticated())
+		{
 			return new RedirectRenderer(array("route" => "home"));
 		}
 		$data = array();
@@ -28,7 +29,8 @@ class LoginResource extends AbstractResource
 
 	public function post()
 	{
-		if (!isset($_POST['username'], $_POST['password'])) {
+		if (!isset($_POST['username'], $_POST['password']))
+		{
 			return new RedirectRenderer(array("route" => "login"));
 		}
 
@@ -36,12 +38,14 @@ class LoginResource extends AbstractResource
 		$auth->setUsername($_POST['username']);
 		$auth->setPassword($_POST['password']);
 
-		try {
+		try
+		{
 			$auth->authenticate();
-		} catch (AuthException $e) {
+		} catch (AuthException $e)
+		{
 			$data = array(
 				'authError' => true,
-				'username' => $_POST['username']
+				'username'  => $_POST['username']
 			);
 			$renderer = new ViewRenderer();
 			$renderer->setData($data);

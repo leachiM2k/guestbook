@@ -17,7 +17,8 @@ class SendResource extends AbstractResource
 	public function post()
 	{
 		$auth = $this->getConfiguration()->getAuth();
-		if ($auth->isAuthenticated() && isset($_POST['text'])) {
+		if ($auth->isAuthenticated() && isset($_POST['text']))
+		{
 			$entry = new Entry();
 			$entry->setUserId($auth->getUserData()->getId());
 			$entry->setText($_POST['text']);

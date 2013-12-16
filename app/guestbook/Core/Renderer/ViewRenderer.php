@@ -15,7 +15,7 @@ class ViewRenderer extends AbstractRenderer
 	{
 		$templateFileName = $this->templateBasePath . '/' . $this->templateFileName;
 
-		if(!is_readable($templateFileName))
+		if (!is_readable($templateFileName))
 		{
 			throw new ViewNotFoundException();
 		}

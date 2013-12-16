@@ -14,25 +14,28 @@ class UserService extends AbstractService
 	{
 		$result = array();
 		$allEntries = $this->dbConnector->fetch('users');
-		foreach($allEntries as $entry)
+		foreach ($allEntries as $entry)
 		{
 			$result[] = $this->mapArrayToEntity($entry);
 		}
 		return $result;
 	}
 
-	public function fetchById($id){
-		$entry = $this->dbConnector->fetch('users', array('id' => $id));
-		if (count($entry) == 0) {
-			throw new EntityNotFoundException();
-		}
-		return $this->mapArrayToEntity($entry[0]);
+	public function fetchById($id)
+	{
+		return $this->fetchOneEntry("id", $id);
 	}
 
 	public function fetchByUsername($username)
 	{
-		$entry = $this->dbConnector->fetch('users', array('login' => $username));
-		if (count($entry) == 0) {
+		return $this->fetchOneEntry("login", $username);
+	}
+
+	protected function fetchOneEntry($field, $value)
+	{
+		$entry = $this->dbConnector->fetch('users', array($field => $value));
+		if (count($entry) == 0)
+		{
 			throw new EntityNotFoundException();
 		}
 		return $this->mapArrayToEntity($entry[0]);

@@ -10,7 +10,6 @@ namespace guestbook\Resources\Entry;
 use guestbook\Core\Renderer\RedirectRenderer;
 use guestbook\Core\Renderer\ViewRenderer;
 use guestbook\Core\Resource\AbstractResource;
-use guestbook\Entities\Entry;
 use guestbook\Entities\EntryService;
 
 class EditResource extends AbstractResource
@@ -31,7 +30,7 @@ class EditResource extends AbstractResource
 		$entryService->persistEntity($entry);
 
 		$data = array(
-			'entry' => $entry,
+			'entry'    => $entry,
 			'userData' => $this->getConfiguration()->getAuth()->getUserData()
 		);
 

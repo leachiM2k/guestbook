@@ -20,11 +20,13 @@ class DatabaseFactory
 
 	public function getConnector()
 	{
-		if (!isset($this->databaseConfig['type'])) {
+		if (!isset($this->databaseConfig['type']))
+		{
 			throw new \RuntimeException("No type set for database");
 		}
 
-		switch ($this->databaseConfig['type']) {
+		switch ($this->databaseConfig['type'])
+		{
 			case 'MySQL':
 				return new MySQL($this->databaseConfig['host'],
 					$this->databaseConfig['db'],

@@ -18,7 +18,8 @@ class EntryService extends AbstractService
 	{
 		$result = array();
 		$allEntries = $this->dbConnector->fetch('entries', null, 'date');
-		foreach ($allEntries as $entry) {
+		foreach ($allEntries as $entry)
+		{
 			$result[] = $this->mapArrayToEntity($entry);
 		}
 		return $result;
@@ -34,7 +35,8 @@ class EntryService extends AbstractService
 	public function fetchById($id)
 	{
 		$entry = $this->dbConnector->fetch('entries', array('id' => $id));
-		if (count($entry) == 0) {
+		if (count($entry) == 0)
+		{
 			throw new EntityNotFoundException();
 		}
 		return $this->mapArrayToEntity($entry[0]);
@@ -60,13 +62,16 @@ class EntryService extends AbstractService
 	public function persistEntity($entity)
 	{
 		$values = $this->mapEntityToArray($entity);
-		if ($entity->getId() !== null) {
+		if ($entity->getId() !== null)
+		{
 			$whereValues = array(
 				'id' => $values['id']
 			);
 			unset($values['id']);
 			$this->dbConnector->update('entries', $values, $whereValues);
-		} else {
+		}
+		else
+		{
 			$this->dbConnector->insert('entries', $values);
 		}
 	}

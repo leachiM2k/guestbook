@@ -19,7 +19,8 @@ class MemorySessionAdapter implements SessionAdapterInterface
 
 	public function get($key)
 	{
-		if (isset($this->sessionStorage[$key])) {
+		if (isset($this->sessionStorage[$key]))
+		{
 			return $this->sessionStorage[$key];
 		}
 		return null;

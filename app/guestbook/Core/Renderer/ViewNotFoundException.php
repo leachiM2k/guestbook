@@ -8,6 +8,7 @@
 namespace guestbook\Core\Renderer;
 
 
-class ViewNotFoundException extends \RuntimeException {
+class ViewNotFoundException extends \RuntimeException
+{
 
 } 

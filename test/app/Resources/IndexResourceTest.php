@@ -18,7 +18,7 @@ class AbstractResourceTest extends \PHPUnit_Framework_TestCase
 			->getMock();
 		$connector->expects($this->once())
 			->method('fetch')
-			->willReturn(array());
+			->will($this->returnValue(array()));
 
 		$database = $this->getMockBuilder('guestbook\Core\Storage\Database\DatabaseFactory')->disableOriginalConstructor()->getMock();
 		$database->expects($this->once())

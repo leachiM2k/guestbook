@@ -18,12 +18,13 @@ class IndexResource extends AbstractResource
 		$entryService = new EntryService($this->getConfiguration()->getDatabase()->getConnector());
 
 		$userData = null;
-		if ($this->getConfiguration()->getAuth()->isAuthenticated()) {
+		if ($this->getConfiguration()->getAuth()->isAuthenticated())
+		{
 			$userData = $this->getConfiguration()->getAuth()->getUserData();
 		}
 
 		$data = array(
-			'entries' => $entryService->fetchAll(),
+			'entries'  => $entryService->fetchAll(),
 			'userData' => $userData
 		);
 

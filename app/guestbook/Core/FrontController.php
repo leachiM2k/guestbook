@@ -29,15 +29,18 @@ class FrontController
 
 	public function dispatch($url, $method)
 	{
-		try {
+		try
+		{
 			$resource = $this->configuration->getRouter()->route($url);
 			$resourceResponse = $this->executeResourceMethod($method, $resource);
-		} catch (RouteNotFoundException $e) {
+		} catch (RouteNotFoundException $e)
+		{
 			$this->httpCode = 404;
 			$this->httpMessage = "Not Found";
 			$resourceInstance = new NotFoundResource();
 			$resourceResponse = $resourceInstance->get($e);
-		} catch (\RuntimeException $e) {
+		} catch (\RuntimeException $e)
+		{
 			$this->httpCode = 500;
 			$this->httpMessage = "Internal Server Error";
 			$resourceInstance = new InternalServerErrorResource();

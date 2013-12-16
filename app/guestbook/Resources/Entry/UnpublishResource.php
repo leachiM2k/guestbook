@@ -9,7 +9,6 @@ namespace guestbook\Resources\Entry;
 
 use guestbook\Core\Renderer\RedirectRenderer;
 use guestbook\Core\Resource\AbstractResource;
-use guestbook\Entities\Entry;
 use guestbook\Entities\EntryService;
 
 class UnpublishResource extends AbstractResource
@@ -19,7 +18,8 @@ class UnpublishResource extends AbstractResource
 		if ($this->getConfiguration()->getAuth()->isAuthenticated()
 			&& $this->getConfiguration()->getAuth()->getUserData()->isAdmin()
 			&& isset($_GET['id'])
-		) {
+		)
+		{
 			$entryService = new EntryService($this->getConfiguration()->getDatabase()->getConnector());
 			$entry = $entryService->fetchById($_GET['id']);
 			$entry->setState("inactive");

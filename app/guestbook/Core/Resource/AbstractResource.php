@@ -26,12 +26,12 @@ abstract class AbstractResource
 
 	public function get()
 	{
-		throw new \RuntimeException("GET is not implemented in " .  get_class($this));
+		throw new \RuntimeException("GET is not implemented in " . get_class($this));
 	}
 
 	public function post()
 	{
-		throw new \RuntimeException("POST is not implemented in " .  get_class($this));
+		throw new \RuntimeException("POST is not implemented in " . get_class($this));
 	}
 
 	public function setConfiguration(Configuration $configuration)

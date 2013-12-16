@@ -33,9 +33,9 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
 		$this->connector->expects($this->once())
 			->method('fetch')
 			->with('users', array('id' => '1337'))
-			->willReturn(array(array()));
+			->will($this->returnValue(array(array())));
 		$result = $this->userService->fetchById(1337);
-		$this->assertInstanceOf('guestbook\Entities\User',$result);
+		$this->assertInstanceOf('guestbook\Entities\User', $result);
 	}
 
 	public function testFetchAll()
@@ -43,9 +43,33 @@ class UserServiceTest extends \PHPUnit_Framework_TestCase
 		$this->connector->expects($this->once())
 			->method('fetch')
 			->with('users')
-			->willReturn(array(array(), array()));
+			->will($this->returnValue(array(array(), array())));
 		$result = $this->userService->fetchAll();
 		$this->assertEquals(2, count($result));
+		$this->assertInstanceOf('guestbook\Entities\User', $result[0]);
+	}
+
+	public function testFetchByUsername()
+	{
+		$this->connector->expects($this->once())
+			->method('fetch')
+			->with('users', array('login' => 'testuser'))
+			->will($this->returnValue(array(array(), array())));
+		$result = $this->userService->fetchByUsername("testuser");
+		$this->assertInstanceOf('guestbook\Entities\User', $result);
+	}
+
+	/**
+	 * @expectedException guestbook\Entities\EntityNotFoundException
+	 */
+	public function testFetchOneEntryFindsNothing()
+	{
+		$this->connector->expects($this->once())
+			->method('fetch')
+			->with('users', array('login' => 'testuser'))
+			->will($this->returnValue(array()));
+		$result = $this->userService->fetchByUsername("testuser");
+
 	}
 
 }

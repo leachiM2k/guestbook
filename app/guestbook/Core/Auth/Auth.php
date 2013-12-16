@@ -8,9 +8,9 @@
 namespace guestbook\Core\Auth;
 
 use guestbook\Core\Session\Session;
+use guestbook\Entities\EntityNotFoundException;
 use guestbook\Entities\User;
 use guestbook\Entities\UserService;
-use guestbook\Entities\EntityNotFoundException;
 
 class Auth
 {
@@ -60,12 +60,15 @@ class Auth
 
 	public function authenticate()
 	{
-		try {
+		try
+		{
 			$authUser = $this->userService->fetchByUsername($this->getUsername());
-		} catch (EntityNotFoundException $e) {
+		} catch (EntityNotFoundException $e)
+		{
 			throw new AuthException;
 		}
-		if (crypt($this->getPassword(), $authUser->getPasswordHash()) !== $authUser->getPasswordHash()) {
+		if (crypt($this->getPassword(), $authUser->getPasswordHash()) !== $authUser->getPasswordHash())
+		{
 			throw new AuthException();
 		}
 		$this->session->setData("loggedin", true);
@@ -75,7 +78,8 @@ class Auth
 
 	public function isAuthenticated()
 	{
-		return $this->session->getData("loggedin");
+		$loggedin = $this->session->getData("loggedin");
+		return isset($loggedin) && $loggedin == true;
 	}
 
 	public function destroy()

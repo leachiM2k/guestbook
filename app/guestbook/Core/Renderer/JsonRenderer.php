@@ -9,7 +9,8 @@
 namespace guestbook\Core\Renderer;
 
 
-class JsonRenderer extends AbstractRenderer {
+class JsonRenderer extends AbstractRenderer
+{
 
 	public function render()
 	{

@@ -31,14 +31,16 @@ class MySQL implements ConnectorInterface
 	public function connect()
 	{
 		$this->connection = new \mysqli($this->host, $this->user, $this->password, $this->db);
-		if ($this->connection->connect_error) {
+		if ($this->connection->connect_error)
+		{
 			throw new \RuntimeException("Error during connection: " . $this->connection->connect_error);
 		}
 	}
 
 	public function disconnect()
 	{
-		if (isset($this->connection)) {
+		if (isset($this->connection))
+		{
 			$this->connection->close();
 		}
 	}
@@ -47,22 +49,25 @@ class MySQL implements ConnectorInterface
 	{
 		$table = $this->connection->real_escape_string($table);
 		$query = "SELECT * FROM $table";
-		if (isset($fieldsAndValues)) {
+		if (isset($fieldsAndValues))
+		{
 			$query .= " WHERE " . join(" AND ", $this->generateValueStatementPart($fieldsAndValues));
 		}
-		if (isset($orderBy)) {
+		if (isset($orderBy))
+		{
 			$query .= " ORDER BY " . $this->connection->real_escape_string($orderBy);
 			$query .= $orderSortAscending ? " ASC" : " DESC";
 		}
 		$resultObject = $this->connection->query($query);
 
-		if($this->connection->error)
+		if ($this->connection->error)
 		{
 			throw new \RuntimeException($this->connection->error);
 		}
 
 		$allResults = array();
-		while ($row = $resultObject->fetch_assoc()) {
+		while ($row = $resultObject->fetch_assoc())
+		{
 			$allResults[] = $row;
 		}
 
@@ -104,7 +109,8 @@ class MySQL implements ConnectorInterface
 	protected function generateValueStatementPart($fieldsAndValues)
 	{
 		$whereParts = array();
-		foreach ($fieldsAndValues as $field => $value) {
+		foreach ($fieldsAndValues as $field => $value)
+		{
 			$field = $this->connection->real_escape_string($field);
 			$value = $this->connection->real_escape_string($value);
 			$whereParts[] = "$field = '$value'";

@@ -111,7 +111,8 @@ class Entry
 
 	public function getUser()
 	{
-		if (isset($this->userService)) {
+		if (isset($this->userService))
+		{
 			return $this->userService->fetchById($this->userId);
 		}
 	}

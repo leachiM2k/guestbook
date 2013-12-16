@@ -7,9 +7,6 @@
 
 namespace guestbook\Core;
 
-use guestbook\Core\FrontController;
-use guestbook\Core\Storage\Database\DatabaseFactory;
-
 class Application
 {
 
@@ -34,7 +31,8 @@ class Application
 		$frontController = new FrontController($this->configuration);
 		$renderer = $frontController->dispatch($url, $method);
 
-		if ($frontController->httpCode != 200) {
+		if ($frontController->httpCode != 200)
+		{
 			header('HTTP/1.0 ' . $frontController->httpCode . ' ' . $frontController->httpMessage);
 		}
 
@@ -52,7 +50,8 @@ class Application
 		$url = $_SERVER['REQUEST_URI'];
 		$url = preg_replace('/\/?\?.*$/', '', $url);
 
-		if (isset($this->config['general']['basePath'])) {
+		if (isset($this->config['general']['basePath']))
+		{
 			$regex = "/^" . preg_quote($this->config['general']['basePath'], "/") . "/";
 			$url = preg_replace($regex, '', $url);
 		}
@@ -61,24 +60,35 @@ class Application
 
 	protected function getFullBaseUrl()
 	{
-		if (isset($_SERVER['REQUEST_SCHEME'])) {
+		if (isset($_SERVER['REQUEST_SCHEME']))
+		{
 			$schema = strtolower($_SERVER['REQUEST_SCHEME']);
-		} elseif (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") {
+		}
+		elseif (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on")
+		{
 			$schema = "https";
-		} else {
+		}
+		else
+		{
 			$schema = "http";
 		}
 
-		if (isset($_SERVER['HTTP_X_FORWARDED_HOST'])) {
+		if (isset($_SERVER['HTTP_X_FORWARDED_HOST']))
+		{
 			$host = $_SERVER['HTTP_X_FORWARDED_HOST'];
-		} elseif (isset($_SERVER['HTTP_HOST'])) {
+		}
+		elseif (isset($_SERVER['HTTP_HOST']))
+		{
 			$host = $_SERVER['HTTP_HOST'];
-		} else {
+		}
+		else
+		{
 			$host = $_SERVER['SERVER_NAME'];
 		}
 
 		$url = $_SERVER['REQUEST_URI'];
-		if (isset($this->config['general']['basePath'])) {
+		if (isset($this->config['general']['basePath']))
+		{
 			$regex = "/^(" . preg_quote($this->config['general']['basePath'], "/") . ").*/";
 			$url = preg_replace($regex, '$1', $url);
 		}

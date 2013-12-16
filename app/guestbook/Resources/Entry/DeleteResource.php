@@ -18,7 +18,8 @@ class DeleteResource extends AbstractResource
 		if ($this->getConfiguration()->getAuth()->isAuthenticated()
 			&& $this->getConfiguration()->getAuth()->getUserData()->isAdmin()
 			&& isset($_GET['id'])
-		) {
+		)
+		{
 			$entryService = new EntryService($this->getConfiguration()->getDatabase()->getConnector());
 			$entry = $entryService->fetchById($_GET['id']);
 			$entryService->deleteEntity($entry);

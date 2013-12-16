@@ -13,7 +13,7 @@ class RedirectRenderer extends AbstractRenderer
 {
 	public function render()
 	{
-		if(!isset($this->route))
+		if (!isset($this->route))
 		{
 			throw new \RuntimeException("Only route is supported for redirect");
 		}

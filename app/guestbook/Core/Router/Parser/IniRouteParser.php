@@ -16,7 +16,7 @@ class IniRouteParser
 
 	public function __construct($configFile = null)
 	{
-		if(isset($configFile))
+		if (isset($configFile))
 		{
 			$this->loadIniRoutes($configFile);
 		}
@@ -35,16 +35,19 @@ class IniRouteParser
 	public function parse()
 	{
 		$splittedIniRoutes = array();
-		foreach ($this->iniRoutes as $entryName => $entryValue) {
+		foreach ($this->iniRoutes as $entryName => $entryValue)
+		{
 			$matches = array();
 			$matchResult = preg_match('/(.*)_(.*)$/', $entryName, $matches);
-			if ($matchResult !== false && $matchResult !== 0) {
+			if ($matchResult !== false && $matchResult !== 0)
+			{
 				$splittedIniRoutes[$matches[1]][$matches[2]] = $entryValue;
 			}
 		}
 
 		$routes = array();
-		foreach ($splittedIniRoutes as $routeName => $routeValues) {
+		foreach ($splittedIniRoutes as $routeName => $routeValues)
+		{
 			$resource = new RouteResource($routeValues['resource']);
 			$routes[] = new Route($routeName, $routeValues['url'], $resource);
 		}
